@@ -1,18 +1,24 @@
+@props(['job'])
+
 <x-panel class="flex-col">
-    <div class="self-start text-sm">Employer</div>
+    <div class="self-start text-sm">{{ $job->employer->name }}</div>
 
     <div class="py-8">
-        <h3 class="group-hover:text-blue-600 transition-colors duration-300 font-bold text-xl">Video Producer</h3>
-        <p class="text-sm mt-4">Full Time - From $60,000</p>
+        <h3 class="group-hover:text-blue-600 transition-colors duration-300 font-bold text-xl">
+            <a href="{{ $job->url }}" target="_blank">
+                {{ $job->title }}
+            </a>
+        </h3>
+        <p class="text-sm mt-4">{{ $job->salary}}</p>
     </div>
 
     <div class="flex justify-between items-center mt-auto">
         <div class="space-x-1">
-            <x-tag size="small">Tag</x-tag>
-            <x-tag size="small">Tag</x-tag>
-            <x-tag size="small">Tag</x-tag>
+            @foreach ($job->tags as $tag)
+                <x-tag size="small" :$tag />
+            @endforeach
         </div>
 
-        <x-employer-logo :width="42" />
+        <x-employer-logo :employer="$job->employer" :width="42" />
     </div>
 </x-panel>
